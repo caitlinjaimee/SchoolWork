@@ -1,0 +1,55 @@
+public class Main {
+    public static void main(String[] args) {
+
+        String[] Months = {"Jan", "Feb", "Mar"};
+        String[] Cities = {"JHB", "DNB", "CTN", "PE"};
+        String[][] SpeedingFines = {
+                {"128km", "135km", "140km"},
+                {"155km", "129km", "175km"},
+                {"129km", "130km", "185km"},
+                {"195km", "155km", "221km"}
+        };
+
+        System.out.println("*******************************");
+        System.out.println("     Monthly Speeding Fines     ");
+        System.out.println("*******************************");
+
+        // Print header
+        System.out.printf("%-10s", "City");
+        for (String month : Months) {
+            System.out.printf("%-10s", month);
+        }
+        System.out.println();
+
+        // Print the table of fines
+        for (int i = 0; i < Cities.length; i++) {
+            System.out.printf("%-10s", Cities[i]);
+            for (int j = 0; j < Months.length; j++) {
+                System.out.printf("%-10s", SpeedingFines[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println("*******************************");
+        System.out.println("   Speeding Fines Statistics    ");
+        System.out.println("*******************************");
+
+        // Find highest and lowest overall fine
+        int highest = 0;
+        int lowest = Integer.MAX_VALUE;
+
+        for (int i = 0; i < Cities.length; i++) {
+            for (int j = 0; j < Months.length; j++) {
+                int fine = Integer.parseInt(SpeedingFines[i][j].replace("km", ""));
+                if (fine > highest) highest = fine;
+                if (fine < lowest) lowest = fine;
+            }
+        }
+
+        // Display only highest and lowest values
+        System.out.printf("Highest Fine: %dkm%n", highest);
+        System.out.printf("Lowest Fine:  %dkm%n", lowest);
+
+        System.out.println("*******************************");
+    }
+}
