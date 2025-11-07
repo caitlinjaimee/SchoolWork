@@ -1,0 +1,87 @@
+INTERFACE: ICricket
+interface ICricket {
+    String getBatsman();
+    String getStadium();
+    int getRunsScored();
+}
+
+// PARENT CLASS: Cricket (Abstract Class)
+
+abstract class Cricket implements ICricket {
+    protected String batsman;
+    protected String stadium;
+    protected int runsScored;
+
+    // Constructor (used by child classes)
+    public Cricket(String batsman, String stadium, int runsScored) {
+        this.batsman = batsman;
+        this.stadium = stadium;
+        this.runsScored = runsScored;
+    }
+
+    // Implement the methods declared in the interface
+    public String getBatsman() { return batsman; }
+    public String getStadium() { return stadium; }
+    public int getRunsScored() { return runsScored; }
+
+    // A common method shared by all cricket objects
+    public String displayInfo() {
+        return "Batsman: " + batsman + "\nStadium: " + stadium + "\nRuns: " + runsScored;
+    }
+}
+
+
+// CHILD CLASS: MatchRecord
+
+class MatchRecord extends Cricket {
+    private String matchDate;
+
+    // Child constructor calls the parent constructor using super()
+    public MatchRecord(String batsman, String stadium, int runsScored, String matchDate) {
+        super(batsman, stadium, runsScored);
+        this.matchDate = matchDate;
+    }
+
+    // Additional method unique to the child class
+    public String getMatchDate() {
+        return matchDate;
+    }
+
+    @Override
+    public String displayInfo() {
+        return super.displayInfo() + "\nDate: " + matchDate;
+    }
+}
+
+
+// MAIN CLASS: 
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class CricketApp extends JFrame {
+
+    // GUI components
+    private JComboBox<String> cmbPlayers;
+    private JTextArea txtDisplay;
+    private JButton btnShow, btnReport;
+
+    // Create a list of MatchRecord (child class objects)
+    private ArrayList<MatchRecord> records = new ArrayList<>();
+
+    // Constructor to set up the GUI layout
+    public CricketApp() {
+        setTitle(" Cricket Match Viewer");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        // Add some sample data
+        records.add(new MatchRecord("Virat Kohli", "Eden Gardens", 120, "2024-03-05"));
+        records.add(new MatchRecord("AB de Villiers", "Wanderers", 145, "2024-03-07"));
+        records.add(new MatchRecord("Ben Stokes", "Lords", 98, "2024-03-09"));
+        records.add(new MatchRecord("Kane Williamson", "SCG", 105, "2024-03-11"));
+
+
